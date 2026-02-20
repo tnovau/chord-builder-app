@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background: radial-gradient(ellipse at 20% 10%, #2a1205 0%, #0d0804 60%, #150a03 100%);
+    min-height: 100vh;
+    color: #f0e6d3;
+  }
+}
+
+@layer utilities {
+  .font-playfair { font-family: var(--font-playfair), Georgia, serif; }
+  .font-source   { font-family: var(--font-source),   Georgia, serif; }
+  .animate-chip  { animation: chipIn 0.2s ease; }
+  .animate-fade-up { animation: fadeUp 0.35s ease; }
+}
+
+@keyframes chipIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
