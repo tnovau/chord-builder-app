@@ -67,7 +67,7 @@ export function identifyChord(rawNotes: string[]): IdentifiedChord[] | null {
     .filter((n): n is NoteName => n !== null);
 
   // Remove duplicates
-  const unique = [...new Set(normalized)];
+  const unique = [...Array.from(new Set(normalized))];
   if (unique.length < 2) return null;
 
   const results: IdentifiedChord[] = [];
@@ -79,8 +79,8 @@ export function identifyChord(rawNotes: string[]): IdentifiedChord[] | null {
     for (const formula of CHORD_FORMULAS) {
       const formulaSet = new Set(formula.intervals.map((i) => i % 12));
 
-      const allFormulaNotesPresent = [...formulaSet].every((i) => noteSet.has(i));
-      const noExtraNotes = [...noteSet].every((i) => formulaSet.has(i));
+      const allFormulaNotesPresent = [...Array.from(formulaSet)].every((i) => noteSet.has(i));
+      const noExtraNotes = [...Array.from(noteSet)].every((i) => formulaSet.has(i));
 
       if (allFormulaNotesPresent && noExtraNotes) {
         results.push({

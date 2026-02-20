@@ -45,7 +45,7 @@ export function findChordPositions(
   const targetSet = new Set(
     chordNotes
       .map(normalizeNote)
-      .filter((n): n is string => n !== null)
+      .filter((n) => n !== null)
       .map((n) => NOTE_ORDER.indexOf(n))
       .filter((i) => i >= 0)
   );
@@ -68,7 +68,7 @@ export function findChordPositions(
     });
 
     // Recursive combinator (prune early)
-    function combine(si: number, current: FretValue[]): void {
+    const combine = (si: number, current: FretValue[]): void => {
       if (positions.length >= maxResults * 4) return;
 
       if (si === 6) {
@@ -79,7 +79,7 @@ export function findChordPositions(
         const covered = new Set(
           current.map((f, i) => (f !== null ? noteAtFret(i, f) : -1))
         );
-        if (![...targetSet].every((n) => covered.has(n))) return;
+        if (!Array.from(targetSet).every((n) => covered.has(n))) return;
 
         // Span check (max 4 frets between non-zero frets)
         const nonOpen = played.filter((f) => f > 0);
@@ -106,7 +106,7 @@ export function findChordPositions(
         combine(si + 1, current);
         current.pop();
       }
-    }
+    };
 
     combine(0, []);
   }
