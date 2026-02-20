@@ -1,4 +1,4 @@
-# ChordBuilder 🎸
+# Chord Builder App 🎸
 
 Identifica acordes de guitarra a partir de notas y visualiza su posición en el mástil.
 
@@ -13,7 +13,7 @@ Identifica acordes de guitarra a partir de notas y visualiza su posición en el 
 ## Estructura del proyecto
 
 ```
-chordbuilder/
+chord-builder-app/
 ├── app/
 │   ├── api/chord/route.ts   ← API REST: POST /api/chord
 │   ├── layout.tsx           ← Fuentes (Playfair + Source Serif 4)
