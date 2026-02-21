@@ -1,4 +1,5 @@
 import ChordBuilder from "@/components/ChordBuilder";
+import AdBanner from "@/components/AdBanner";
 
 export default function HomePage() {
   return (
@@ -16,8 +17,18 @@ export default function HomePage() {
         </p>
       </header>
 
+      {/* Top Ad */}
+      <div className="max-w-4xl mx-auto px-4 py-4">
+        <AdBanner slot="YOUR_AD_SLOT_1" format="horizontal" className="min-h-[90px]" />
+      </div>
+
       {/* Main app */}
       <ChordBuilder />
+
+      {/* Bottom Ad */}
+      <div className="max-w-4xl mx-auto px-4 py-4">
+        <AdBanner slot="YOUR_AD_SLOT_2" format="horizontal" className="min-h-[90px]" />
+      </div>
 
       {/* Footer */}
       <footer className="text-center py-6 border-t border-wood-900 text-wood-800 text-[11px] tracking-[2px] font-source">
