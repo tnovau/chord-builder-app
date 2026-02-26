@@ -27,17 +27,17 @@ export default function HomePage() {
       </header>
 
       {/* Top Ad */}
-      <div className="max-w-4xl mx-auto px-4 py-4">
+      {/* <div className="max-w-4xl mx-auto px-4 py-4">
         <AdBanner slot="YOUR_AD_SLOT_1" format="horizontal" className="min-h-[90px]" />
-      </div>
+      </div> */}
 
       {/* Main app */}
       <ChordBuilder />
 
       {/* Bottom Ad */}
-      <div className="max-w-4xl mx-auto px-4 py-4">
+      {/* <div className="max-w-4xl mx-auto px-4 py-4">
         <AdBanner slot="YOUR_AD_SLOT_2" format="horizontal" className="min-h-[90px]" />
-      </div>
+      </div> */}
 
       {/* Footer */}
       <footer className="text-center py-6 border-t border-wood-900 text-wood-600 text-[11px] tracking-[2px] font-source">
