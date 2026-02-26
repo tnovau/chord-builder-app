@@ -2,6 +2,7 @@
 
 import { useState, useRef, KeyboardEvent } from "react";
 import { normalizeNote } from "@/lib/music";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const QUICK_NOTES = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"] as const;
 
@@ -13,14 +14,15 @@ interface Props {
 }
 
 export default function NoteInput({ notes, onChange, error, onErrorChange }: Props) {
+  const { t } = useLanguage();
   const [input, setInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const addNote = (raw: string) => {
     const note = normalizeNote(raw);
-    if (!note) { onErrorChange(`"${raw}" no es una nota válida`); return; }
-    if (notes.includes(note)) { onErrorChange(`${note} ya está añadida`); return; }
-    if (notes.length >= 6) { onErrorChange("Máximo 6 notas"); return; }
+    if (!note) { onErrorChange(`"${raw}" ${t.noteInput.errorInvalidNote}`); return; }
+    if (notes.includes(note)) { onErrorChange(`${note} ${t.noteInput.errorAlreadyAdded}`); return; }
+    if (notes.length >= 6) { onErrorChange(t.noteInput.errorMaxNotes); return; }
     onErrorChange("");
     onChange([...notes, note]);
   };
@@ -42,7 +44,7 @@ export default function NoteInput({ notes, onChange, error, onErrorChange }: Pro
   return (
     <div>
       <label className="block text-[11px] tracking-[4px] text-wood-400 uppercase mb-4 font-source">
-        Notas del acorde
+        {t.noteInput.label}
       </label>
 
       {/* Chip input */}
@@ -69,7 +71,7 @@ export default function NoteInput({ notes, onChange, error, onErrorChange }: Pro
           value={input}
           onChange={(e) => { setInput(e.target.value); onErrorChange(""); }}
           onKeyDown={handleKeyDown}
-          placeholder={notes.length === 0 ? "Escribe una nota (ej: F, Eb, A#)…" : ""}
+          placeholder={notes.length === 0 ? t.noteInput.placeholder : ""}
           className="bg-transparent border-none outline-none text-wood-50 text-sm font-serif flex-1 min-w-[140px] placeholder:text-wood-600"
           list="note-datalist"
         />

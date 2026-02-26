@@ -6,11 +6,13 @@ import ChordDiagram from "./ChordDiagram";
 import { identifyChord } from "@/lib/music";
 import { findChordPositions } from "@/lib/fretboard";
 import { playChord } from "@/lib/audio";
+import { useLanguage } from "@/i18n/LanguageContext";
 import type { IdentifiedChord, ChordPosition } from "@/types/music";
 
 const INTERVAL_NAMES = ["1","b2","2","b3","3","4","b5","5","#5","6","b7","7"];
 
 export default function ChordBuilder() {
+  const { t } = useLanguage();
   const [notes, setNotes] = useState<string[]>([]);
   const [error, setError] = useState("");
   const [chords, setChords] = useState<IdentifiedChord[] | null>(null);
@@ -26,12 +28,12 @@ export default function ChordBuilder() {
   }, []);
 
   const analyze = () => {
-    if (notes.length < 2) { setError("Introduce al menos 2 notas"); return; }
+    if (notes.length < 2) { setError(t.chordBuilder.errorMinNotes); return; }
     setError("");
     const result = identifyChord(notes);
     if (!result) {
       setChords(null);
-      setError("No se reconoció ningún acorde con esas notas");
+      setError(t.chordBuilder.errorNotRecognized);
       return;
     }
     setChords(result);
@@ -85,7 +87,7 @@ export default function ChordBuilder() {
             disabled={notes.length < 2}
             className="flex-1 bg-gradient-to-r from-wood-300 to-wood-200 disabled:from-wood-800 disabled:to-wood-800 disabled:text-wood-600 text-wood-950 font-bold font-playfair text-sm rounded-xl py-3 px-5 transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(201,169,110,0.25)] disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
           >
-            ♩ Identificar Acorde
+            {t.chordBuilder.identifyChord}
           </button>
           <button
             onClick={reset}
@@ -125,7 +127,7 @@ export default function ChordBuilder() {
             {/* Diagram column */}
             <div>
               <p className="text-[10px] tracking-[3px] text-wood-400 uppercase mb-3 font-source">
-                Posición {posIdx + 1} / {positions.length}
+                {t.chordBuilder.position} {posIdx + 1} / {positions.length}
               </p>
 
               <div className="bg-gradient-to-br from-wood-800 to-wood-900 border border-wood-700 rounded-xl p-4">
@@ -136,7 +138,7 @@ export default function ChordBuilder() {
                   />
                 ) : (
                   <div className="w-40 h-44 flex items-center justify-center text-wood-600 text-xs italic">
-                    Sin posiciones
+                    {t.chordBuilder.noPositions}
                   </div>
                 )}
               </div>
@@ -181,7 +183,7 @@ export default function ChordBuilder() {
 
                 {/* Notes */}
                 <div className="mb-5">
-                  <p className="text-[10px] tracking-[3px] text-wood-400 uppercase mb-2 font-source">Notas</p>
+                  <p className="text-[10px] tracking-[3px] text-wood-400 uppercase mb-2 font-source">{t.chordBuilder.notes}</p>
                   <div className="flex flex-wrap gap-2">
                     {activeChord.notes.map((n, i) => (
                       <span
@@ -200,7 +202,7 @@ export default function ChordBuilder() {
 
                 {/* Intervals */}
                 <div>
-                  <p className="text-[10px] tracking-[3px] text-wood-400 uppercase mb-2 font-source">Intervalos</p>
+                  <p className="text-[10px] tracking-[3px] text-wood-400 uppercase mb-2 font-source">{t.chordBuilder.intervals}</p>
                   <div className="flex flex-wrap gap-2">
                     {activeChord.intervals.map((iv, i) => (
                       <span key={i} className="bg-wood-900 border border-wood-700 rounded-md px-2.5 py-1 text-wood-400 text-xs font-serif">
@@ -221,7 +223,7 @@ export default function ChordBuilder() {
                     : "text-wood-200 hover:border-wood-400 hover:bg-wood-200/5"
                 }`}
               >
-                {playing ? "♩ Reproduciendo…" : "▶  Escuchar acorde"}
+                {playing ? t.chordBuilder.playing : t.chordBuilder.playChord}
               </button>
             </div>
           </div>
@@ -232,11 +234,11 @@ export default function ChordBuilder() {
       {!analyzed && notes.length === 0 && (
         <div className="text-center py-16 text-wood-700">
           <div className="text-5xl mb-4">♬</div>
-          <p className="font-playfair text-xl italic">
-            Introduce las notas de un acorde<br />para identificarlo y visualizarlo
+          <p className="font-playfair text-xl italic whitespace-pre-line">
+            {t.chordBuilder.emptyTitle}
           </p>
           <p className="text-xs mt-3 text-wood-800">
-            Ejemplo: F + Eb + A + C# → F7(#5)
+            {t.chordBuilder.emptyExample}
           </p>
         </div>
       )}
