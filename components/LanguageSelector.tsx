@@ -20,7 +20,7 @@ export default function LanguageSelector() {
               : "opacity-50 hover:opacity-80"
           }`}
         >
-          <CircleFlag countryCode={l.countryCode} height="24" />
+          <CircleFlag countryCode={l.countryCode} height={36} width={36} />
         </button>
       ))}
     </div>
