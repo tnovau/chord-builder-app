@@ -237,7 +237,7 @@ export default function ChordBuilder() {
           <p className="font-playfair text-xl italic whitespace-pre-line">
             {t.chordBuilder.emptyTitle}
           </p>
-          <p className="text-xs mt-3 text-wood-800">
+          <p className="text-xs mt-3 text-wood-600">
             {t.chordBuilder.emptyExample}
           </p>
         </div>

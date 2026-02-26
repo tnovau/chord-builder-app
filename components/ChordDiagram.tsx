@@ -35,12 +35,12 @@ export default function ChordDiagram({ position, rootNote }: Props) {
         <rect
           x={PAD_L} y={PAD_T - 4}
           width={(STRING_COUNT - 1) * COL_W} height={5}
-          fill="#C9A96E" rx={2}
+          fill="#e0c97f" rx={2}
         />
       ) : (
         <text
           x={PAD_L - 8} y={PAD_T + ROW_H * 0.65}
-          fontSize={11} fill="#C9A96E"
+          fontSize={11} fill="#e0c97f"
           textAnchor="middle" fontFamily="Georgia"
         >
           {displayStart}
@@ -53,7 +53,7 @@ export default function ChordDiagram({ position, rootNote }: Props) {
           key={fi}
           x1={PAD_L} y1={PAD_T + fi * ROW_H}
           x2={PAD_L + (STRING_COUNT - 1) * COL_W} y2={PAD_T + fi * ROW_H}
-          stroke="#4a3728" strokeWidth={fi === 0 ? 2 : 1}
+          stroke="#334155" strokeWidth={fi === 0 ? 2 : 1}
         />
       ))}
 
@@ -63,7 +63,7 @@ export default function ChordDiagram({ position, rootNote }: Props) {
           key={si}
           x1={PAD_L + si * COL_W} y1={PAD_T}
           x2={PAD_L + si * COL_W} y2={PAD_T + FRET_COUNT * ROW_H}
-          stroke="#6b5040" strokeWidth={1 + (5 - si) * 0.15}
+          stroke="#475569" strokeWidth={1 + (5 - si) * 0.15}
         />
       ))}
 
@@ -76,7 +76,7 @@ export default function ChordDiagram({ position, rootNote }: Props) {
             y={PAD_T + (barre.fret - displayStart) * ROW_H - ROW_H + ROW_H * 0.25}
             width={(barre.toString - barre.fromString) * COL_W + 16}
             height={ROW_H * 0.5}
-            rx={10} fill="#C9A96E" opacity={0.9}
+            rx={10} fill="#e0c97f" opacity={0.9}
           />
         )}
 
@@ -90,7 +90,7 @@ export default function ChordDiagram({ position, rootNote }: Props) {
             <circle
               key={si}
               cx={PAD_L + si * COL_W} cy={PAD_T - 14}
-              r={6} fill="none" stroke="#C9A96E" strokeWidth={1.5}
+              r={6} fill="none" stroke="#e0c97f" strokeWidth={1.5}
             />
           );
         }
@@ -108,13 +108,13 @@ export default function ChordDiagram({ position, rootNote }: Props) {
           <g key={si}>
             <circle
               cx={cx} cy={cy} r={ROW_H * 0.35}
-              fill={isRoot ? "#C9A96E" : "#8B4513"}
-              stroke="#C9A96E" strokeWidth={isRoot ? 1.5 : 0.5}
+              fill={isRoot ? "#e0c97f" : "#64748b"}
+              stroke="#e0c97f" strokeWidth={isRoot ? 1.5 : 0.5}
             />
             <text
               x={cx} y={cy + 4}
               textAnchor="middle" fontSize={8}
-              fill={isRoot ? "#1a0f0a" : "#f0e6d3"}
+              fill={isRoot ? "#020617" : "#f8fafc"}
               fontFamily="Georgia"
             >
               {noteName}
@@ -129,8 +129,8 @@ export default function ChordDiagram({ position, rootNote }: Props) {
         const cx = PAD_L + si * COL_W;
         return (
           <g key={si}>
-            <line x1={cx - 5} y1={PAD_T - 19} x2={cx + 5} y2={PAD_T - 9} stroke="#8B4513" strokeWidth={1.5} />
-            <line x1={cx + 5} y1={PAD_T - 19} x2={cx - 5} y2={PAD_T - 9} stroke="#8B4513" strokeWidth={1.5} />
+            <line x1={cx - 5} y1={PAD_T - 19} x2={cx + 5} y2={PAD_T - 9} stroke="#64748b" strokeWidth={1.5} />
+            <line x1={cx + 5} y1={PAD_T - 19} x2={cx - 5} y2={PAD_T - 9} stroke="#64748b" strokeWidth={1.5} />
           </g>
         );
       })}
@@ -141,7 +141,7 @@ export default function ChordDiagram({ position, rootNote }: Props) {
           key={si}
           x={PAD_L + si * COL_W} y={H - 5}
           textAnchor="middle" fontSize={9}
-          fill="#6b5040" fontFamily="Georgia"
+          fill="#64748b" fontFamily="Georgia"
         >
           {label}
         </text>

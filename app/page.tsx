@@ -40,7 +40,7 @@ export default function HomePage() {
       </div>
 
       {/* Footer */}
-      <footer className="text-center py-6 border-t border-wood-900 text-wood-800 text-[11px] tracking-[2px] font-source">
+      <footer className="text-center py-6 border-t border-wood-900 text-wood-600 text-[11px] tracking-[2px] font-source">
         CHORDBUILDER · MVP v0.1 · NEXT.JS + TYPESCRIPT
       </footer>
     </div>

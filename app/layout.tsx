@@ -27,11 +27,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={`${playfair.variable} ${sourceSerif.variable}`}>
       <head>
-        <Script
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1140361060649944"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
       </head>
       <body>

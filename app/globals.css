@@ -4,9 +4,9 @@
 
 @layer base {
   body {
-    background: radial-gradient(ellipse at 20% 10%, #2a1205 0%, #0d0804 60%, #150a03 100%);
+    background: radial-gradient(ellipse at 20% 10%, #1e293b 0%, #020617 60%, #0f172a 100%);
     min-height: 100vh;
-    color: #f0e6d3;
+    color: #f8fafc;
   }
 }
 
