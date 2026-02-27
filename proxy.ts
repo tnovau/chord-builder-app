@@ -15,7 +15,11 @@ function getLocale(request: NextRequest) {
     }
   }).languages()
 
-  return match(languages, localesArray, defaultLocale)
+  return match(languages, localesArray, defaultLocale) as Locale;
+}
+
+const isLocaleCookieValid = (cookie: string | undefined): cookie is Locale => {
+  return cookie !== undefined && localesArray.includes(cookie as Locale);
 }
 
 export async function proxy(request: NextRequest) {
@@ -36,8 +40,8 @@ export async function proxy(request: NextRequest) {
 
   const localeCookie = request.cookies.get(localeCookieName)?.value;
 
-  const locale = localeCookie && localesArray.includes(localeCookie as Locale) ?
-    localeCookie as Locale :
+  const locale = isLocaleCookieValid(localeCookie) ?
+    localeCookie :
     getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
 
