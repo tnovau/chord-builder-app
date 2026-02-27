@@ -32,10 +32,12 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   };
 
-  const locale = getLocale(request)
+  const locale = cookieStore.get(localeCookieName)?.value || getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
 
-  cookieStore.set(localeCookieName, locale);
+  cookieStore.set(localeCookieName, locale, {
+    httpOnly: true,
+  });
 
   return NextResponse.redirect(request.nextUrl)
 }
