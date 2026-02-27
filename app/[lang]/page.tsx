@@ -1,7 +1,6 @@
 "use client";
 
 import ChordBuilder from "@/components/ChordBuilder";
-import AdBanner from "@/components/AdBanner";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useLanguage } from "@/i18n/LanguageContext";
 

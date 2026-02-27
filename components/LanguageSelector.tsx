@@ -3,16 +3,17 @@
 import { CircleFlag } from "react-circle-flags";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { locales } from "@/i18n";
+import Link from "next/link";
 
 export default function LanguageSelector() {
-  const { locale, setLocale } = useLanguage();
+  const { locale } = useLanguage();
 
   return (
     <div className="flex items-center gap-2">
       {locales.map((l) => (
-        <button
+        <Link
           key={l.code}
-          onClick={() => setLocale(l.code)}
+          href={`/${l.code}`}
           title={l.label}
           className={`rounded-full transition-all ${
             locale === l.code
@@ -21,7 +22,7 @@ export default function LanguageSelector() {
           }`}
         >
           <CircleFlag countryCode={l.countryCode} height={36} width={36} />
-        </button>
+        </Link>
       ))}
     </div>
   );

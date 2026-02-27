@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Source_Serif_4 } from "next/font/google";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { LanguageProvider } from "@/i18n/LanguageContext";
-import "./globals.css";
+import "../globals.css";
+import { Locale } from "@/i18n";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -23,9 +23,10 @@ export const metadata: Metadata = {
   description: "Introduce notas, identifica el acorde y visualiza su posición en el mástil.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
+  const { lang } = await params;
   return (
-    <html lang="es" className={`${playfair.variable} ${sourceSerif.variable}`}>
+    <html lang={lang} className={`${playfair.variable} ${sourceSerif.variable}`}>
       <head>
         <script
           async
@@ -35,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="google-adsense-account" content="ca-pub-1140361060649944"></meta>
       </head>
       <body>
-        <LanguageProvider>
+        <LanguageProvider locale={lang as Locale}>
           {children}
         </LanguageProvider>
         <Analytics />
