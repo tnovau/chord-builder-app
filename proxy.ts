@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse, ProxyConfig } from "next/server";
 import { match } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
-import { defaultLocale, locales } from "./i18n";
+import { defaultLocale, Locale, locales } from "./i18n";
 import { cookies } from "next/headers";
 
 const localesArray = locales.map(locale => locale.code)
@@ -32,7 +32,11 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   };
 
-  const locale = cookieStore.get(localeCookieName)?.value || getLocale(request)
+  const localeCookie = cookieStore.get(localeCookieName)?.value;
+
+  const locale = localeCookie && localesArray.includes(localeCookie as Locale) ?
+    localeCookie as Locale :
+    getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
 
   cookieStore.set(localeCookieName, locale, {
