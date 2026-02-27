@@ -22,6 +22,7 @@ export default function LanguageSelector() {
               ? "ring-2 ring-wood-300 scale-110"
               : "opacity-50 hover:opacity-80"
           }`}
+          aria-current={locale === l.code ? "true" : undefined}
         >
           <CircleFlag countryCode={l.countryCode} height={36} width={36} />
         </Link>
