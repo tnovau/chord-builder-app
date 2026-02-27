@@ -2,7 +2,6 @@ import { NextRequest, NextResponse, ProxyConfig } from "next/server";
 import { match } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
 import { defaultLocale, Locale, locales } from "./i18n";
-import { cookies } from "next/headers";
 
 const localesArray = locales.map(locale => locale.code)
 const acceptLanguageHeader = 'accept-language';
@@ -20,36 +19,35 @@ function getLocale(request: NextRequest) {
 }
 
 export async function proxy(request: NextRequest) {
-  const cookieStore = await cookies();
-
   const { pathname } = request.nextUrl
   const pathnameHasLocale = localesArray.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
 
   if (pathnameHasLocale) {
-    cookieStore.set(localeCookieName, pathname.split('/')[1], {
+    const response = NextResponse.next();
+    response.cookies.set(localeCookieName, pathname.split('/')[1], {
       httpOnly: true,
       sameSite: 'strict',
       secure: true,
     });
-    return NextResponse.next();
+    return response;
   };
 
-  const localeCookie = cookieStore.get(localeCookieName)?.value;
+  const localeCookie = request.cookies.get(localeCookieName)?.value;
 
   const locale = localeCookie && localesArray.includes(localeCookie as Locale) ?
     localeCookie as Locale :
     getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
 
-  cookieStore.set(localeCookieName, locale, {
+  const response = NextResponse.redirect(request.nextUrl)
+  response.cookies.set(localeCookieName, locale, {
     httpOnly: true,
     sameSite: 'strict',
     secure: true,
   });
-
-  return NextResponse.redirect(request.nextUrl)
+  return response;
 }
 
 export const config: ProxyConfig = {
