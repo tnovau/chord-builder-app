@@ -28,7 +28,11 @@ export async function proxy(request: NextRequest) {
   )
 
   if (pathnameHasLocale) {
-    cookieStore.set(localeCookieName, pathname.split('/')[1]);
+    cookieStore.set(localeCookieName, pathname.split('/')[1], {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: true,
+    });
     return NextResponse.next();
   };
 
@@ -41,6 +45,8 @@ export async function proxy(request: NextRequest) {
 
   cookieStore.set(localeCookieName, locale, {
     httpOnly: true,
+    sameSite: 'strict',
+    secure: true,
   });
 
   return NextResponse.redirect(request.nextUrl)
