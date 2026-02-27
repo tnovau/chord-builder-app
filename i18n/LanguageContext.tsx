@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, ReactNode } from "react";
-import { translations, type Locale, type Translations } from ".";
+import { type Locale, type Translations } from ".";
 
 interface LanguageContextValue {
   locale: Locale;
@@ -10,9 +10,7 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ locale, children }: { locale: Locale; children: ReactNode }) {
-  const t = translations[locale];
-
+export function LanguageProvider({ locale, t, children }: { locale: Locale; children: ReactNode; t: Translations }) {
   return (
     <LanguageContext.Provider value={{ locale, t }}>
       {children}

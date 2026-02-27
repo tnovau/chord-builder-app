@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import "../globals.css";
-import { Locale } from "@/i18n";
+import { Locale, locales, Translations } from "@/i18n";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -23,8 +23,15 @@ export const metadata: Metadata = {
   description: "Introduce notas, identifica el acorde y visualiza su posición en el mástil.",
 };
 
+export async function generateStaticParams() {
+  return locales.map((locale) => ({
+    lang: locale.code,
+  }));
+}
+
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
   const { lang } = await params;
+  const translations = (await import(`@/i18n/locales/${lang}.json`)).default as Translations;
   return (
     <html lang={lang} className={`${playfair.variable} ${sourceSerif.variable}`}>
       <head>
@@ -36,7 +43,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <meta name="google-adsense-account" content="ca-pub-1140361060649944"></meta>
       </head>
       <body>
-        <LanguageProvider locale={lang as Locale}>
+        <LanguageProvider locale={lang as Locale} t={translations}>
           {children}
         </LanguageProvider>
         <Analytics />

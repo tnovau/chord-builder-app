@@ -1,15 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, ProxyConfig } from "next/server";
 import { match } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
+import { defaultLocale, locales } from "./i18n";
+import { cookies } from "next/headers";
 
-const ENGLISH = 'en'
-const SPANISH = 'es'
-const defaultLocale = ENGLISH
-const locales = [ENGLISH, SPANISH]
+const localesArray = locales.map(locale => locale.code)
+const acceptLanguageHeader = 'accept-language';
 
-const acceptLanguageHeader = 'accept-language'
+const localeCookieName = 'NEXT_LOCALE';
 
-// Get the preferred locale, similar to the above or using a library
 function getLocale(request: NextRequest) {
   const languages = new Negotiator({
     headers: {
@@ -17,31 +16,32 @@ function getLocale(request: NextRequest) {
     }
   }).languages()
 
-  return match(languages, locales, defaultLocale)
+  return match(languages, localesArray, defaultLocale)
 }
 
-export function proxy(request: NextRequest) {
-  // Check if there is any supported locale in the pathname
+export async function proxy(request: NextRequest) {
+  const cookieStore = await cookies();
+
   const { pathname } = request.nextUrl
-  const pathnameHasLocale = locales.some(
+  const pathnameHasLocale = localesArray.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
 
-  if (pathnameHasLocale) return;
+  if (pathnameHasLocale) {
+    cookieStore.set(localeCookieName, pathname.split('/')[1]);
+    return NextResponse.next();
+  };
 
-  // Redirect if there is no locale
   const locale = getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
-  // e.g. incoming request is /products
-  // The new URL is now /en/products
+
+  cookieStore.set(localeCookieName, locale);
+
   return NextResponse.redirect(request.nextUrl)
 }
 
-export const config = {
+export const config: ProxyConfig = {
   matcher: [
-    // Skip all internal paths (_next)
     '/((?!(?:_next|api|favicon\.ico|ads\.txt|\.well-known/appspecific/com\.chrome\.devtools\.json)).*)'
-    // Optional: only run on root (/) URL
-    // '/'
   ],
 }

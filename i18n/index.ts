@@ -4,7 +4,10 @@ import type { Translations } from "./types";
 
 export type { Translations };
 
-export type Locale = "en" | "es";
+const ENGLISH = 'en'
+const SPANISH = 'es'
+
+export type Locale = typeof ENGLISH | typeof SPANISH;
 
 export interface LocaleConfig {
   code: Locale;
@@ -13,8 +16,10 @@ export interface LocaleConfig {
 }
 
 export const locales: LocaleConfig[] = [
-  { code: "en", label: "English", countryCode: "gb" },
-  { code: "es", label: "Español", countryCode: "es" },
+  { code: ENGLISH, label: "English", countryCode: "gb" },
+  { code: SPANISH, label: "Español", countryCode: "es" },
 ];
 
 export const translations: Record<Locale, Translations> = { en, es };
+
+export const defaultLocale = ENGLISH
