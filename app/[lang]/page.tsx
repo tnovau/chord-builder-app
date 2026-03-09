@@ -25,14 +25,12 @@ export default function HomePage() {
         </p>
       </header>
 
-      <div id="container-2ae7f8603b6d8054178355ae94c4e0d5"></div>
-
-      {/* Main app */}
       <ChordBuilder />
 
-      {/* Footer */}
+      <div id="container-2ae7f8603b6d8054178355ae94c4e0d5"></div>
+
       <footer className="text-center py-6 border-t border-wood-900 text-wood-600 text-[11px] tracking-[2px] font-source">
-        CHORDBUILDER · MVP v0.1 · NEXT.JS + TYPESCRIPT
+        CHORDBUILDER
       </footer>
     </div>
   );
