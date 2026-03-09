@@ -35,9 +35,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   return (
     <html lang={lang} className={`${playfair.variable} ${sourceSerif.variable}`}>
       <head>
-        <script
-          src="https://pl28882442.effectivegatecpm.com/6a/6d/76/6a6d76bc1b9b53b3bc644c8728631724.js"
-        />
+        <script async data-cfasync="false" src="https://pl28882600.effectivegatecpm.com/2ae7f8603b6d8054178355ae94c4e0d5/invoke.js" />
       </head>
       <body>
         <LanguageProvider locale={lang as Locale} t={translations}>
