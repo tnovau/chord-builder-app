@@ -36,11 +36,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
     <html lang={lang} className={`${playfair.variable} ${sourceSerif.variable}`}>
       <head>
         <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1140361060649944"
-          crossOrigin="anonymous"
+          src="https://pl28882442.effectivegatecpm.com/6a/6d/76/6a6d76bc1b9b53b3bc644c8728631724.js"
         />
-        <meta name="google-adsense-account" content="ca-pub-1140361060649944"></meta>
       </head>
       <body>
         <LanguageProvider locale={lang as Locale} t={translations}>
