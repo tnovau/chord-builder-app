@@ -40,7 +40,7 @@ export default function RegisterPage() {
     });
 
     if (authError) {
-      setError(authError.message ?? "Something went wrong");
+      setError(authError.message ?? t.auth.errorGeneric);
       setLoading(false);
       return;
     }
