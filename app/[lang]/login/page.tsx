@@ -26,6 +26,12 @@ export default function LoginPage() {
     });
 
     if (authError) {
+      if (authError.status === 403) {
+        router.push(
+          `/${locale}/verify-email?email=${encodeURIComponent(email)}`,
+        );
+        return;
+      }
       setError(authError.message ?? t.auth.errorGeneric);
       setLoading(false);
       return;
