@@ -38,6 +38,7 @@
     "registering": "Creating account…",
     "backToHome": "← Back to ChordBuilder",
     "errorPasswordMismatch": "Passwords do not match",
-    "errorPasswordLength": "Password must be at least 8 characters"
+    "errorPasswordLength": "Password must be at least 8 characters",
+    "errorGeneric": "An error occurred. Please try again."
   }
 }

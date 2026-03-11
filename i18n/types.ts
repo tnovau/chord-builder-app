@@ -39,5 +39,6 @@ export interface Translations {
     backToHome: string;
     errorPasswordMismatch: string;
     errorPasswordLength: string;
+    errorGeneric: string;
   };
 }

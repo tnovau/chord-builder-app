@@ -26,7 +26,7 @@ export default function LoginPage() {
     });
 
     if (authError) {
-      setError(authError.message ?? t("auth.genericError"));
+      setError(authError.message ?? t.auth.errorGeneric);
       setLoading(false);
       return;
     }

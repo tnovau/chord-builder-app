@@ -38,6 +38,7 @@
     "registering": "Creando cuenta…",
     "backToHome": "← Volver a ChordBuilder",
     "errorPasswordMismatch": "Las contraseñas no coinciden",
-    "errorPasswordLength": "La contraseña debe tener al menos 8 caracteres"
+    "errorPasswordLength": "La contraseña debe tener al menos 8 caracteres",
+    "errorGeneric": "Ocurrió un error. Por favor, inténtalo de nuevo."
   }
 }
