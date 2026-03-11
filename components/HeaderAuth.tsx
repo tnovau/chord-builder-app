@@ -22,7 +22,7 @@ export default function HeaderAuth() {
           onClick={() => authClient.signOut()}
           className="text-[11px] tracking-[2px] uppercase text-wood-500 hover:text-wood-200 font-source transition-colors"
         >
-          Sign out
+          {t.auth.signOut}
         </button>
       </div>
     );

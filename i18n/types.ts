@@ -35,6 +35,7 @@ export interface Translations {
     noAccount: string;
     haveAccount: string;
     loggingIn: string;
+    signOut: string;
     registering: string;
     backToHome: string;
     errorPasswordMismatch: string;
