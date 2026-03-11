@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: chord-builder-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: chord_builder_db
+    volumes:
+      - chord_builder_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  chord_builder_postgres_data:

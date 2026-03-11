@@ -23,4 +23,21 @@ export interface Translations {
     errorAlreadyAdded: string;
     errorMaxNotes: string;
   };
+  auth: {
+    login: string;
+    register: string;
+    email: string;
+    password: string;
+    name: string;
+    confirmPassword: string;
+    loginButton: string;
+    registerButton: string;
+    noAccount: string;
+    haveAccount: string;
+    loggingIn: string;
+    registering: string;
+    backToHome: string;
+    errorPasswordMismatch: string;
+    errorPasswordLength: string;
+  };
 }
