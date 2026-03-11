@@ -142,3 +142,8 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Better Auth SQLite database
+sqlite.db
+
+/lib/generated/prisma

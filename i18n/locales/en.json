@@ -22,5 +22,24 @@
     "errorInvalidNote": "is not a valid note",
     "errorAlreadyAdded": "is already added",
     "errorMaxNotes": "Maximum 6 notes"
+  },
+  "auth": {
+    "login": "Sign In",
+    "register": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "confirmPassword": "Confirm password",
+    "loginButton": "Sign In",
+    "signOut": "Sign Out",
+    "registerButton": "Create Account",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "loggingIn": "Signing in…",
+    "registering": "Creating account…",
+    "backToHome": "← Back to ChordBuilder",
+    "errorPasswordMismatch": "Passwords do not match",
+    "errorPasswordLength": "Password must be at least 8 characters",
+    "errorGeneric": "An error occurred. Please try again."
   }
 }
