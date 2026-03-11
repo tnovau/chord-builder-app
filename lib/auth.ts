@@ -17,8 +17,6 @@ if (!databaseUrl) {
 const adapter = new PrismaPg({ connectionString: databaseUrl });
 
 declare global {
-  // eslint-disable-next-line no-var
-  // eslint-disable-next-line no-unused-vars
   var prisma: PrismaClient | undefined;
 }
 
@@ -30,6 +28,8 @@ if (process.env.NODE_ENV !== "production") {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const oneHourInSeconds = 60 * 60;
+
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
@@ -37,11 +37,14 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
+    autoSignIn: false,
+  },
+  emailVerification: {
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
-    async sendVerificationEmail({ user, url }: { user: { email: string }; url: string }) {
+    async sendVerificationEmail({ user, url, token }) {
       await resend.emails.send({
-        from: "ChordBuilder <noreply@chordbuilder.app>",
+        from: "ChordBuilder <noreply@updates.ontheedge.cloud>",
         to: user.email,
         subject: "Verify your email — ChordBuilder",
         html: `
@@ -52,6 +55,7 @@ export const auth = betterAuth({
         `,
       });
     },
+    expiresIn: oneHourInSeconds,
   },
   plugins: [nextCookies()],
 });
