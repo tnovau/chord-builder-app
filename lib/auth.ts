@@ -26,7 +26,7 @@ if (process.env.NODE_ENV !== "production") {
   globalThis.prisma = prisma;
 }
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 const oneHourInSeconds = 60 * 60;
 
@@ -43,6 +43,20 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
     async sendVerificationEmail({ user, url, token }) {
+      if (!resend) {
+        console.log(user, url, token);
+
+        return;
+      }
+
+      /**
+       * @todo Use a proper email template and styling for the verification email
+       * @todo Handle errors when sending the email and implement retry logic if necessary
+       * @todo Put in parameter the sender of the email.
+       * @todo Change template by language using callbackUrl searchparam in url (with format like &callbackURL=%2Fen)
+       * and using it in the template to display the correct language in the email, and also put the email subject in the correct language by using the same callbackUrl searchparam in url (with format like &callbackURL=%2Fen)
+       */
+
       await resend.emails.send({
         from: "ChordBuilder <noreply@updates.ontheedge.cloud>",
         to: user.email,
