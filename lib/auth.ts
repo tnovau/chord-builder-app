@@ -30,6 +30,18 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 
 const oneHourInSeconds = 60 * 60;
 
+const getLanguageFromUrl = (url: string) => {
+  const verificationUrl = new URL(url);
+
+  const callbackURL = verificationUrl.searchParams.get("callbackURL");
+
+  if (callbackURL) {
+    const language = callbackURL.split("/")[1];
+    return language;
+  }
+  return "en";
+}
+
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
@@ -45,9 +57,11 @@ export const auth = betterAuth({
     async sendVerificationEmail({ user, url, token }) {
       if (!resend) {
         console.log(user, url, token);
-
         return;
       }
+
+      const language = getLanguageFromUrl(url);
+      console.log(language);
 
       /**
        * @todo Use a proper email template and styling for the verification email
