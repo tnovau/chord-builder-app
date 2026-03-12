@@ -27,8 +27,10 @@ app/
 │   └── route.ts         # Catch-all API handler for /api/auth/*
 ├── [lang]/login/
 │   └── page.tsx         # Login page (email + password)
-└── [lang]/register/
-    └── page.tsx         # Registration page (name + email + password)
+├── [lang]/register/
+│   └── page.tsx         # Registration page (name + email + password)
+└── [lang]/verify-email/
+    └── page.tsx         # Email verification notice + resend button
 
 components/
 └── HeaderAuth.tsx       # Session-aware header nav (login/register or user/sign-out)
@@ -90,16 +92,27 @@ All table names in PostgreSQL are lowercase (`user`, `session`, `account`, `veri
 1. User visits `/{locale}/register`.
 2. Client-side validation: password ≥ 8 chars, confirmation matches.
 3. `authClient.signUp.email({ name, email, password })` → `POST /api/auth/sign-up/email`.
-4. Better Auth hashes the password (bcrypt), creates `user` + `account` + `session` rows.
-5. `nextCookies` plugin sets the session cookie.
-6. Client redirects to `/{locale}` (home).
+4. Better Auth hashes the password (bcrypt), creates `user` + `account` rows. **No session is created** because `requireEmailVerification` is enabled.
+5. Better Auth sends a verification email via Resend with a link to `/api/auth/verify-email?token=...&callbackURL=/{locale}`.
+6. Client redirects to `/{locale}/verify-email?email=...`.
+
+### Email verification
+
+1. User receives a verification email with a link.
+2. Clicking the link hits `/api/auth/verify-email?token=...&callbackURL=/{locale}`.
+3. Better Auth validates the token, sets `emailVerified = true` on the user.
+4. With `autoSignInAfterVerification` enabled, a session is created automatically.
+5. User is redirected to the `callbackURL` (home page).
+
+If the user doesn't receive the email, the verify-email page provides a "Resend" button that calls `authClient.sendVerificationEmail({ email, callbackURL })`.
 
 ### Sign in
 
 1. User visits `/{locale}/login`.
 2. `authClient.signIn.email({ email, password })` → `POST /api/auth/sign-in/email`.
-3. Better Auth verifies credentials, creates a new `session` row.
-4. Session cookie set, client redirects home.
+3. If email is **not verified**, Better Auth returns a 403 error. The login page redirects to `/{locale}/verify-email?email=...`.
+4. If credentials are valid and email is verified, Better Auth creates a new `session` row.
+5. Session cookie set, client redirects home.
 
 ### Session check (client)
 
@@ -168,6 +181,7 @@ if (!sessionCookie) {
 | `BETTER_AUTH_SECRET` | Encryption key for sessions (≥ 32 chars) | `openssl rand -base64 32` |
 | `BETTER_AUTH_URL` | Base URL for auth callbacks | `http://localhost:3000` |
 | `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:pass@localhost:5432/chord_builder_db` |
+| `RESEND_API_KEY` | API key for Resend (email delivery) | `re_xxxxxxxxxxxxxxxxxxxxxxxxxxxx` |
 
 All three are required. They live in `.env` which is gitignored.
 
@@ -279,6 +293,8 @@ When adding new auth UI strings, update all three files.
 ## Security notes
 
 - Passwords are bcrypt-hashed by Better Auth before storage.
+- Email verification is required before a session can be created (`requireEmailVerification: true`).
+- Verification emails are sent via [Resend](https://resend.com) using a time-limited token stored in the `Verification` table.
 - Session tokens are cryptographically random, stored in HTTP-only cookies.
 - `nextCookies` plugin ensures cookies are set correctly from server actions.
 - CSRF protection is built into Better Auth.

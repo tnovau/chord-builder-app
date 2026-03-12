@@ -41,5 +41,12 @@ export interface Translations {
     errorPasswordMismatch: string;
     errorPasswordLength: string;
     errorGeneric: string;
+    verifyEmailTitle: string;
+    verifyEmailMessage: string;
+    verifyEmailResend: string;
+    verifyEmailResending: string;
+    verifyEmailResent: string;
+    verifyEmailNotReceived: string;
+    verifyEmailRequired: string;
   };
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, SubmitEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
@@ -15,7 +15,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: SubmitEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
@@ -26,6 +26,12 @@ export default function LoginPage() {
     });
 
     if (authError) {
+      if (authError.status === 403) {
+        router.push(
+          `/${locale}/verify-email?email=${encodeURIComponent(email)}`,
+        );
+        return;
+      }
       setError(authError.message ?? t.auth.errorGeneric);
       setLoading(false);
       return;

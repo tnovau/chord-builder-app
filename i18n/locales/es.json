@@ -40,6 +40,13 @@
     "backToHome": "← Volver a ChordBuilder",
     "errorPasswordMismatch": "Las contraseñas no coinciden",
     "errorPasswordLength": "La contraseña debe tener al menos 8 caracteres",
-    "errorGeneric": "Ocurrió un error. Por favor, inténtalo de nuevo."
+    "errorGeneric": "Ocurrió un error. Por favor, inténtalo de nuevo.",
+    "verifyEmailTitle": "Verifica Tu Correo",
+    "verifyEmailMessage": "Enviamos un enlace de verificación a tu correo. Revisa tu bandeja de entrada y haz clic en el enlace para activar tu cuenta.",
+    "verifyEmailResend": "Reenviar correo de verificación",
+    "verifyEmailResending": "Enviando…",
+    "verifyEmailResent": "¡Correo de verificación enviado!",
+    "verifyEmailNotReceived": "¿No recibiste el correo? Revisa tu carpeta de spam o reenvíalo.",
+    "verifyEmailRequired": "Por favor, verifica tu correo electrónico para continuar."
   }
 }

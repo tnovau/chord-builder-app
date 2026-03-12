@@ -40,6 +40,13 @@
     "backToHome": "← Back to ChordBuilder",
     "errorPasswordMismatch": "Passwords do not match",
     "errorPasswordLength": "Password must be at least 8 characters",
-    "errorGeneric": "An error occurred. Please try again."
+    "errorGeneric": "An error occurred. Please try again.",
+    "verifyEmailTitle": "Verify Your Email",
+    "verifyEmailMessage": "We sent a verification link to your email. Please check your inbox and click the link to activate your account.",
+    "verifyEmailResend": "Resend verification email",
+    "verifyEmailResending": "Sending…",
+    "verifyEmailResent": "Verification email sent!",
+    "verifyEmailNotReceived": "Didn't receive the email? Check your spam folder or resend it.",
+    "verifyEmailRequired": "Please verify your email address to continue."
   }
 }
